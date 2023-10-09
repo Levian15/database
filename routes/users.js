@@ -7,7 +7,7 @@ const router = Router();
 router.get('/',usersList);
 //router.post('/',usersList);
 //router.put('/',usersList);
-//router.('/',usersList);
-//router.get('/',usersList);
+//router.patch('/',usersList);
+//router.delete('/',usersList);
 
 module.exports=router;
