@@ -2,6 +2,7 @@ const{request, response}=require('express')
 const usersModel = require('../models/users');
 const pool=require('../db');
 
+
 const usersList=async(req = request,res =response )=>{
     let conn;
 
@@ -25,4 +26,38 @@ const usersList=async(req = request,res =response )=>{
     }
 }
 
-module.exports={usersList};
+const listUserByID=async(req = request,res =response )=>{
+    const{id}=req.params;
+    if (isNaN(id)){
+        res.status(400).json({msg:'Invalid ID'});
+        return;
+    }
+
+    let conn;
+
+    try {
+         conn = await pool.getConnection();
+
+       const [user] = await conn.query(usersModel.getByID,[id],(err)=>{
+        if(err){
+            throw new Error(err);
+        }
+       })
+
+       if(!user){
+        res.status(404).json({msg: 'User not found'});
+        return;
+       }
+        
+       res.json(user);
+
+    } catch (error){
+        console.log(error);
+        res.status(500).json(error);
+        
+    } finally {
+        if (conn) conn.end();
+    }
+}
+
+module.exports={usersList, listUserByID};
