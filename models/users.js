@@ -28,7 +28,7 @@ WHERE
     )
     VALUES(
       ?,?,?,?,?,?,?,?  
-    ) `,
+    )`,
 
     getByUsername:`
     SELECT
@@ -38,6 +38,7 @@ WHERE
     WHERE 
         username = ?    
     `,
+
     getByEmail:`
     SELECT
         id
@@ -46,6 +47,32 @@ WHERE
     WHERE 
         email = ?
     `,  
+    
+    updateRow:`
+    UPDATE
+        Users
+    SET
+        username=?,
+        email=?,
+        password=?,
+        name=?,
+        lastname=?,
+        phone_number=?,
+        role_id=?,
+        is_active=?
+    WHERE
+        id=?
+    `,
+
+    deleteRow:`
+    UPDATE
+         Users
+    SET
+         is_active=0
+    WHERE
+         id=?
+
+    `,
 
 };
 
