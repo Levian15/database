@@ -32,7 +32,7 @@ WHERE
 
     getByUsername:`
     SELECT
-        id
+        *
     FROM
         Users
     WHERE 
